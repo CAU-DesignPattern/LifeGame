@@ -65,19 +65,19 @@ public class LifePanel extends JPanel {
         });
     }
 
-    /** Override paint to ask the outermost Neighborhood
-     *  (and any subcells) to draw themselves recursively.
-     *  All knowledge of screen size is also encapsulated.
-     *  (The size is passed into the outermost <code>Cell</code>.)
+    /**
+     * Override paint to ask the outermost Neighborhood
+     * (and any subcells) to draw themselves recursively.
+     * All knowledge of screen size is also encapsulated.
+     * (The size is passed into the outermost <code>Cell</code>.)
      */
-    public void paint(Graphics g)
-    {
+    public void paint(Graphics g) {
         Rectangle panelBounds = getBounds();
 
         // The panel bounds is relative to the upper-left
         // corner of the screen. Pretend that it's at (0,0)
         panelBounds.x = 0;
         panelBounds.y = 0;
-        outermostCell.redraw(g, panelBounds, true);		//{=Universe.redraw1}
+        outermostCell.redraw(g, panelBounds, true);        //{=Universe.redraw1}
     }
 }

@@ -4,15 +4,17 @@ import java.awt.*;
 
 public interface Cell {
 
-    /** Access a specific contained cell located at the edge of the
-     *  composite cell.
-     *  @param row 		The requested row. Must be on the edge of
-     *  				the block.
-     *  @param column	The requested column. Must be on the edge
-     *  				of the block.
-     *  @return	true	if the the state changed.
+    /**
+     * Access a specific contained cell located at the edge of the
+     * composite cell.
+     *
+     * @param row    The requested row. Must be on the edge of
+     *               the block.
+     * @param column The requested column. Must be on the edge
+     *               of the block.
+     * @return true    if the the state changed.
      */
-    Cell edge( int row, int column );
+    Cell edge(int row, int column);
 
     /**
      * Redraw yourself in the indicated

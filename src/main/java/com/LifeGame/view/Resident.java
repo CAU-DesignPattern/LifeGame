@@ -9,12 +9,13 @@ public final class Resident implements Cell {
 
     private boolean amAlive = false;
 
-    /** This cell is monetary, so it's at every edge of itself. It's
-     *  an internal error for any position except for (0,0) to be
-     *  requsted since the width is 1.
+    /**
+     * This cell is monetary, so it's at every edge of itself. It's
+     * an internal error for any position except for (0,0) to be
+     * requsted since the width is 1.
      */
-    public Cell	edge(int row, int column)
-    {	assert row==0 && column==0;
+    public Cell edge(int row, int column) {
+        assert row == 0 && column == 0;
         return this;
     }
 
