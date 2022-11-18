@@ -13,7 +13,7 @@ import java.util.Observer;
 @Component
 public class View extends JFrame implements Observer {
 
-    private LifePanel lifePanel;
+    private final LifePanel lifePanel;
 
     @Autowired
     public View(LifePanel lifePanel) {
