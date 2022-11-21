@@ -7,7 +7,7 @@ import java.util.Observable;
 @Component
 public class ExampleModel extends Observable implements Model{
     @Override
-    public void nextState() {
+    public void nextState(int[][] map) {
 
     }
 
