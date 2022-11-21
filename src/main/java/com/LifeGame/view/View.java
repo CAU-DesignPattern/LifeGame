@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,9 +14,6 @@ public class View extends JFrame implements Observer {
 
     private final LifePanel lifePanel;
     private final MenuBar menuBar;
-
-    private final ArrayList<JMenuItem> gridMenuBar = new ArrayList<>();
-    private final ArrayList<JMenuItem> goMenuBar = new ArrayList<>();
 
     @Autowired
     public View(LifePanel lifePanel, MenuBar menuBar) {

@@ -8,7 +8,7 @@ import java.util.HashMap;
 @Component
 public class MenuBar extends JMenuBar {
 
-    private HashMap<String, Menu> menus = new HashMap<>();
+    private final HashMap<String, Menu> menus = new HashMap<>();
 
     public MenuBar() {
         super();

@@ -1,6 +1,11 @@
 package com.LifeGame.view.menu;
 
+import com.LifeGame.controller.MenuController;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class Menu extends JMenu {
@@ -15,6 +20,12 @@ public class Menu extends JMenu {
 
     public void addMenuItem(String name) {
         JMenuItem menuItem = new JMenuItem(name);
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AnnotationConfigApplicationContext().getBean(MenuController.class).actionHandler(e.getActionCommand());
+            }
+        });
         this.add(menuItem);
         this.menuItems.put(name, menuItem);
     }
