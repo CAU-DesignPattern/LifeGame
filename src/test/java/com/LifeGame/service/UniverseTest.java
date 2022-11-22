@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class UniverseTest {
 
     Universe universe = new Universe();
-    String outputPath = "/Users/jisoo/Desktop/store test";
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
@@ -22,10 +21,11 @@ class UniverseTest {
     //현재 state가 설정한 파일 형식으로 지정한 위치에 잘 저장되는지 테스트
     @DisplayName("store 테스트")
     @Test
-    public void storeTest() throws Exception {
+    public void A_storeTest() throws Exception {
         // given
-        String fileName = "mm";
-        FileOutputStream out = new FileOutputStream("/Users/jisoo/Desktop/" + fileName);
+        String fileName = "example";
+        FileOutputStream out = new FileOutputStream("src/test/java/com/LifeGame/service/" + fileName);
+        //FileOutputStream out = new FileOutputStream("/Users/jisoo/Desktop/" + fileName);
         // when
         universe.doStore();
         // then
@@ -36,10 +36,11 @@ class UniverseTest {
     // 저장에 대한 실패 테스트(아무 작업 없이 write 누른 경우 에러 다이얼로그)
     @DisplayName("store fail 테스트")
     @Test
-    public void storeFailTest() throws Exception {
+    public void B_storeFailTest() throws Exception {
         // given
-        String fileName = "mm";
-        FileOutputStream out = new FileOutputStream("/Users/jisoo/Desktop/" + fileName);
+        String fileName = "example";
+        FileOutputStream out = new FileOutputStream("src/test/java/com/LifeGame/service/" + fileName);
+        //FileOutputStream out = new FileOutputStream("/Users/jisoo/Desktop/" + fileName);
         // when
         universe.doStore();
         // then
@@ -50,10 +51,11 @@ class UniverseTest {
     // 읽기 정상 작동하는지 테스트
     @DisplayName("load 테스트")
     @Test
-    public void loadTest() throws Exception {
+    public void C_loadTest() throws Exception {
         // given
-        String fileName = "mm";
-        FileInputStream in = new FileInputStream("/Users/jisoo/Desktop/" + fileName);
+        String fileName = "example";
+        FileInputStream in = new FileInputStream("src/test/java/com/LifeGame/service/" + fileName);
+        //FileInputStream in = new FileInputStream("/Users/jisoo/Desktop/" + fileName);
         // when
         universe.doLoad();
         // then
@@ -61,20 +63,20 @@ class UniverseTest {
         in.close();
     }
 
-    // 다른 형식 파일이 선택된 경우에 대한 실패 테스트 (life아닌 txt들어온 경우 에러 다이얼로그)
+    // 아무 동작 없는 경우에 대한 실패 테스트
     @DisplayName("load fail 테스트")
     @Test
-    public void loadFailTest() throws Exception {
+    public void D_loadFailTest() throws Exception {
         // given
         String fileName = "hello.txt";
-        FileInputStream in = new FileInputStream("/Users/jisoo/Desktop/" + fileName);
-        Scanner scanner = new Scanner(in);
-        String str = scanner.next();
+        FileInputStream in = new FileInputStream("src/test/java/com/LifeGame/service/" + fileName);
+        //FileInputStream in = new FileInputStream("/Users/jisoo/Desktop/" + fileName);
+        //Scanner scanner = new Scanner(in);
+        //String str = scanner.next();
         // when
         universe.doLoad();
         // then
-        assertEquals("hello", str);
-
+        assertEquals("실패", outputStreamCaptor.toString().trim());
         in.close();
     }
 

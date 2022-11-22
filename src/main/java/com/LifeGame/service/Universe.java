@@ -62,6 +62,7 @@ public class Universe {
 
             in.close();
         } catch (IOException theException) {
+            System.out.println("실패");
             JOptionPane.showMessageDialog(null, "Read Failed!",
                     "The Game of Life", JOptionPane.ERROR_MESSAGE);
         }
