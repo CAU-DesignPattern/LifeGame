@@ -6,11 +6,12 @@ import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.time.Clock;
+import java.util.Collection;
 
 // caretaker
 public class Universe {
 
-    Originator originator; // 얘를 메멘토 만들어서 파일에 저장 불러오기 
+    Originator originator; // 얘를 메멘토 만들어서 파일에 저장 불러오기
     public static File userSelected(final String startHere,
                                     final String extension,
                                     final String description,
@@ -39,13 +40,24 @@ public class Universe {
         throw new FileNotFoundException("No file selected by user");
     }
 
-    private void doLoad() {
+//    public void load(InputStream in) throws IOException {
+//        ObjectInputStream source = new ObjectInputStream(in);
+//        liveCells = (Collection) (source.readObject());
+//    }
+//
+//    public void flush(OutputStream out) throws IOException {
+//        ObjectOutputStream sink = new ObjectOutputStream(out);
+//        sink.writeObject(liveCells);
+//    }
+
+    void doLoad() {
         try {
             FileInputStream in = new FileInputStream(
                     Universe.userSelected(".", ".life", "Life File", "Load"));
 
-            Storable memento = originator.createMemento();
-            memento.load(in);
+            //Storable memento = originator.createMemento();
+            //memento.load(in);
+            System.out.println("성공");
             // TODO : memento 로드 후 처리해 줘야함
 
             in.close();
@@ -55,17 +67,17 @@ public class Universe {
         }
 
     }
-
-    private void doStore() {
+    void doStore() {
         try {
             FileOutputStream out = new FileOutputStream(
                     Universe.userSelected(".", ".life", "Life File", "Write"));
 
-            Storable memento = originator.createMemento();
-            memento.flush(out);
-
+            System.out.println("성공");
+            //Storable memento = originator.createMemento();
+            //memento.flush(out);
             out.close();
         } catch (IOException theException) {
+            System.out.println("실패");
             JOptionPane.showMessageDialog(null, "Write Failed!",
                     "The Game of Life", JOptionPane.ERROR_MESSAGE);
         }
