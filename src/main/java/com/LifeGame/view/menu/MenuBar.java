@@ -29,6 +29,18 @@ public class MenuBar extends JMenuBar {
         this.menus.put(name, menu);
     }
 
+    public void addMenu(HashMap<String, HashMap<String, Runnable>> menus) {
+        for (String name : menus.keySet()) {
+            Menu menu = new Menu(name);
+            HashMap<String, Runnable> menuItems = menus.get(name);
+            for (String menuItem : menuItems.keySet()) {
+                menu.addMenuItem(menuItem);
+            }
+            this.add(menu);
+            this.menus.put(name, menu);
+        }
+    }
+
     public void removeMenu(String name) {
         this.remove(this.menus.get(name));
         this.menus.remove(name);

@@ -1,7 +1,9 @@
 package com.LifeGame.view;
 
+import com.LifeGame.controller.MenuController;
 import com.LifeGame.view.menu.MenuBar;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -22,16 +24,18 @@ public class View extends JFrame implements Observer {
         this.lifePanel = lifePanel;
         this.menuBar = menuBar;
 
-        this.menuBar.addMenu("Grid", new String[]{"Clear", "Load", "Store", "Exit"});
-        this.menuBar.addMenu("Go", new String[]{"Halt", "Tick (Single Step)", "Agonizing", "Slow", "Medium", "Fast"});
-
+        this.initMenu();
         this.initUI();
     }
 
-    private void initUI() {
-        // Must establish th21e MenuSite very early in case
-        // a subcomponent puts menus on it.
+    private void initMenu(){
+        this.menuBar.addMenu(new AnnotationConfigApplicationContext().getBean(MenuController.class).getMenus());
 
+        //this.menuBar.addMenu("Grid", new String[]{"Clear", "Load", "Store", "Exit"});
+        //this.menuBar.addMenu("Go", new String[]{"Halt", "Tick (Single Step)", "Agonizing", "Slow", "Medium", "Fast"});
+    }
+
+    private void initUI() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(this.lifePanel, BorderLayout.CENTER); //{=life.java.install}
