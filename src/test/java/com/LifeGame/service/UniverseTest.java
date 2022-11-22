@@ -1,7 +1,9 @@
 package com.LifeGame.service;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -80,5 +82,22 @@ class UniverseTest {
         in.close();
     }
 
+    // 내용 확인 테스트
+    @DisplayName("load context 테스트")
+    @Test
+    public void E_loadContextTest() throws Exception {
+        // given
+        String fileName = "hello.txt";
+        FileInputStream in = new FileInputStream("src/test/java/com/LifeGame/service/" + fileName);
+        //FileInputStream in = new FileInputStream("/Users/jisoo/Desktop/" + fileName);
+        Scanner scanner = new Scanner(in);
+        String str = scanner.next();
+        // when
+        universe.doLoad();
+        // then
+        assertEquals("hello", str);
+
+        in.close();
+    }
 
 }
