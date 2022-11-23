@@ -1,8 +1,10 @@
 package com.LifeGame.view.menu;
 
+import com.LifeGame.controller.action.Action;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Component
@@ -20,25 +22,24 @@ public class MenuBar extends JMenuBar {
         this.menus.put(name, menu);
     }
 
-    public void addMenu(String name, String[] menuItems) {
-        Menu menu = new Menu(name);
-        for (String menuItem : menuItems) {
-            menu.addMenuItem(menuItem);
-        }
-        this.add(menu);
-        this.menus.put(name, menu);
-    }
-
-    public void addMenu(HashMap<String, HashMap<String, Runnable>> menus) {
-        for (String name : menus.keySet()) {
+    public void addMenu(String name, String menuItem, Action action) {
+        try {
+            this.menus.get(name).addMenuItem(menuItem, action);
+        } catch (NullPointerException e) {
             Menu menu = new Menu(name);
-            HashMap<String, Runnable> menuItems = menus.get(name);
-            for (String menuItem : menuItems.keySet()) {
-                menu.addMenuItem(menuItem);
-            }
+            menu.addMenuItem(menuItem, action);
             this.add(menu);
             this.menus.put(name, menu);
         }
+    }
+
+    public void addMenu(String name, HashMap<String, Action> menuItems) {
+        Menu menu = new Menu(name);
+        for (String menuItem : menuItems.keySet()) {
+            menu.addMenuItem(menuItem, menuItems.get(menuItem));
+        }
+        this.add(menu);
+        this.menus.put(name, menu);
     }
 
     public void removeMenu(String name) {
