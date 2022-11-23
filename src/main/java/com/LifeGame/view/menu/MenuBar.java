@@ -1,5 +1,6 @@
 package com.LifeGame.view.menu;
 
+import com.LifeGame.controller.action.Action;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 @Component
 public class MenuBar extends JMenuBar {
 
-    private HashMap<String, Menu> menus = new HashMap<>();
+    private final HashMap<String, Menu> menus = new HashMap<>();
 
     public MenuBar() {
         super();
@@ -20,10 +21,21 @@ public class MenuBar extends JMenuBar {
         this.menus.put(name, menu);
     }
 
-    public void addMenu(String name, String[] menuItems) {
+    public void addMenu(String name, String menuItem, Action action) {
+        try {
+            this.menus.get(name).addMenuItem(menuItem, action);
+        } catch (NullPointerException e) {
+            Menu menu = new Menu(name);
+            menu.addMenuItem(menuItem, action);
+            this.add(menu);
+            this.menus.put(name, menu);
+        }
+    }
+
+    public void addMenu(String name, HashMap<String, Action> menuItems) {
         Menu menu = new Menu(name);
-        for (String menuItem : menuItems) {
-            menu.addMenuItem(menuItem);
+        for (String menuItem : menuItems.keySet()) {
+            menu.addMenuItem(menuItem, menuItems.get(menuItem));
         }
         this.add(menu);
         this.menus.put(name, menu);

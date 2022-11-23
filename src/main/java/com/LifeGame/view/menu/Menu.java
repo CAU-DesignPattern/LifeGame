@@ -1,6 +1,10 @@
 package com.LifeGame.view.menu;
 
+import com.LifeGame.controller.action.Action;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class Menu extends JMenu {
@@ -13,8 +17,14 @@ public class Menu extends JMenu {
         this.name = name;
     }
 
-    public void addMenuItem(String name) {
+    public void addMenuItem(String name, Action action) {
         JMenuItem menuItem = new JMenuItem(name);
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action.action();
+            }
+        });
         this.add(menuItem);
         this.menuItems.put(name, menuItem);
     }
