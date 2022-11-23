@@ -8,8 +8,13 @@ public class ChangeState implements Model{
     }
 
     @Override
-    public void setMapSize(int n) {
+    public void setMapSize(int n){
 
+    }
+
+    public static int[][] setMap(int n) {
+        int [][] arr = new int [n][n];
+        return arr;
     }
 
     @Override

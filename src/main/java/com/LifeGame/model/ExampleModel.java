@@ -14,6 +14,7 @@ public class ExampleModel extends Observable implements Model{
     @Override
     public void setMapSize(int n) {
 
+
     }
 
     @Override
