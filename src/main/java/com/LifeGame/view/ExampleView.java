@@ -38,13 +38,9 @@ public class ExampleView extends JFrame implements Observer {
 
         gl.setAutoCreateContainerGaps(true);
 
-        gl.setHorizontalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0])
-        );
+        gl.setHorizontalGroup(gl.createSequentialGroup().addComponent(arg[0]));
 
-        gl.setVerticalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0])
-        );
+        gl.setVerticalGroup(gl.createSequentialGroup().addComponent(arg[0]));
     }
 
     @Override
