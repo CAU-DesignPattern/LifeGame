@@ -2,19 +2,25 @@ package com.LifeGame.model;
 
 public class Model {
 
-    public int[][] setMapSize(int n) {
-        int[][] arr = new int[n][n];
-        return arr;
+    private int[][] map;
+
+    public Model(){
+        this.map = map;
     }
 
-    public int[][] toggle(int x, int y, int[][] arr) {
+    public int[][] getMap(){
+        return this.map;
+    }
+    public void setMapSize(int n){
+        this.map = new int[n][n];
+    }
+
+    public void toggle(int x, int y) {
         // 좌표 설정 방식 - 그냥 배열이랑 똑같이 간다고 가정
-        int[][] toggled = arr;
-        toggled[x][y] = 1;
-        return toggled;
+        this.map[x][y] = 1;
     }
 
-    public int[][] nextState(int[][] map) {
+    public void nextState(int[][] map) {
         int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
         int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
         int n = map.length;
@@ -42,12 +48,7 @@ public class Model {
                 map[i][j] %= 2;
             }
         }
-
-        return map;
+        this.map = map;
 
     }
-//
-//    public void nextState(int[][] arr);
-//    public void setMapSize(int n);
-//    public void toggle(int x, int y);   // dot가 업데이트된 위치
 }
