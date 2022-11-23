@@ -23,7 +23,7 @@ class MenuTest {
         String name = "test menu item";
 
         //when
-        this.menu.addMenuItem(name);
+        this.menu.addMenuItem(name, null);
 
         //then
         assertEquals(name, this.menu.getMenuItem(name).getText());
@@ -35,7 +35,7 @@ class MenuTest {
 
         //given
         String name = "test menu item";
-        this.menu.addMenuItem(name);
+        this.menu.addMenuItem(name, null);
 
         //when
         this.menu.removeMenuItem(name);
@@ -50,7 +50,7 @@ class MenuTest {
 
         //given
         String name = "test menu item";
-        this.menu.addMenuItem(name);
+        this.menu.addMenuItem(name, null);
 
         //when
         String newName = "changed name";
@@ -69,7 +69,7 @@ class MenuTest {
         String name = "test menu item";
 
         //when
-        this.menu.addMenuItem(name);
+        this.menu.addMenuItem(name, null);
 
         //then
         assertEquals(name, this.menu.getMenuItem(name).getText());
