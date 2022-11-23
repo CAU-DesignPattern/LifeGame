@@ -4,7 +4,6 @@ import com.LifeGame.controller.action.Action;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Component
