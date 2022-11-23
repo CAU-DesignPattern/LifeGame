@@ -21,7 +21,7 @@ public class MenuController {
         this.view = view;
         this.menuBar = menuBar;
 
-        this.view.setJMenuBar((JMenuBar) this.menuBar);
+        this.view.setMenuBar((JMenuBar) this.menuBar);
     }
 
     public void addMenuItem(String menu, String menuItem, Action action) {
