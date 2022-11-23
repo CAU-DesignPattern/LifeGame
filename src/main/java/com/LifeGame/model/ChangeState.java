@@ -21,6 +21,15 @@ public class ChangeState implements Model{
     public void toggle(int x, int y) {
 
     }
+
+    public static int[][] dot(int x, int y, int[][] arr){
+        // 좌표 설정 방식 - 그냥 배열이랑 똑같이 간다고 가정
+        int [][] toggled = arr;
+        toggled[x][y] = 1;
+        return toggled;
+
+    }
+
     public static int[][] update(int[][] map) {
         int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
         int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
