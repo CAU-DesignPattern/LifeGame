@@ -15,25 +15,16 @@ public class MenuController {
 
     private final View view;
     private final MenuBar menuBar;
-    private final LifePanel lifePanel;
-    private boolean isViewInitialized;
 
     @Autowired
-    public MenuController(View view, MenuBar menuBar, LifePanel lifePanel) {
+    public MenuController(View view, MenuBar menuBar) {
         this.view = view;
         this.menuBar = menuBar;
-        this.lifePanel = lifePanel;
-        this.isViewInitialized = false;
+
+        this.view.setJMenuBar((JMenuBar) this.menuBar);
     }
 
     public void addMenuItem(String menu, String menuItem, Action action) {
         this.menuBar.addMenu(menu, menuItem, action);
-
-        if (!this.isViewInitialized) {
-            this.isViewInitialized = true;
-            this.view.setJMenuBar((JMenuBar) this.menuBar);
-            this.view.getContentPane().add(this.lifePanel, BorderLayout.CENTER); //{=life.java.install}
-            this.view.pack();
-        }
     }
 }
