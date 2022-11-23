@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 5)
-public class HaltAction implements Action {
+public class HaltAction extends Action {
 
     @Autowired
     public HaltAction(MenuController menuController) {

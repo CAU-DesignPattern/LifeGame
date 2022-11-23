@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 7)
-public class AgonizingAction implements Action {
+public class AgonizingAction extends Action {
 
     @Autowired
     public AgonizingAction(MenuController menuController) {

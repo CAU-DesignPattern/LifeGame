@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 4)
-public class ExitAction implements Action {
+public class ExitAction extends Action {
 
     @Autowired
     public ExitAction(MenuController menuController) {

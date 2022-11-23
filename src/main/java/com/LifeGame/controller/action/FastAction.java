@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 9)
-public class FastAction implements Action {
+public class FastAction extends Action {
 
     @Autowired
     public FastAction(MenuController menuController) {

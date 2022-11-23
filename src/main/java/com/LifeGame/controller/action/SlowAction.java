@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 7)
-public class SlowAction implements Action {
+public class SlowAction extends Action {
 
     @Autowired
     public SlowAction(MenuController menuController) {

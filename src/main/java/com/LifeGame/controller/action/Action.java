@@ -1,6 +1,9 @@
 package com.LifeGame.controller.action;
 
-public interface Action {
+import java.awt.*;
 
-    void action();
+public abstract class Action {
+
+    public void action() {}
+    public void action(Point point) {}
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(value = 6)
-public class TickAction implements Action {
+public class TickAction extends Action {
 
     @Autowired
     public TickAction(MenuController menuController) {
