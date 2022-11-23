@@ -17,7 +17,12 @@ public class Model {
 
     public void toggle(int x, int y) {
         // 좌표 설정 방식 - 그냥 배열이랑 똑같이 간다고 가정
-        this.map[x][y] = 1;
+        if (this.map[x][y] == 0){
+            this.map[x][y] = 1;
+        }
+        else{
+            this.map[x][y] = 0;
+        }
     }
 
     public void nextState(int[][] map) {
