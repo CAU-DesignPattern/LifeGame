@@ -21,6 +21,14 @@ public class View extends JFrame implements Observer {
         this.getContentPane().setLayout(new BorderLayout());
     }
 
+    public void setMenuBar(JMenuBar menuBar) {
+        this.setJMenuBar(menuBar);
+    }
+
+    public void addPanel(JPanel panel, String layout) {
+        this.getContentPane().add(panel, layout);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
 

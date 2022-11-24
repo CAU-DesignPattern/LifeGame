@@ -45,5 +45,9 @@ public final class Resident implements Cell {
     public int widthInCells() {
         return 1;
     }
+
+    public void	clear()	{
+        amAlive = false;
+    }
 }
 

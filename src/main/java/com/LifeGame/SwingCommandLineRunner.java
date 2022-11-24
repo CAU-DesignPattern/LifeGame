@@ -18,6 +18,11 @@ public class SwingCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        EventQueue.invokeLater(() -> this.view.setVisible(true));
+        EventQueue.invokeLater(this::run);
+    }
+
+    private void run() {
+        this.view.pack();
+        this.view.setVisible(true);
     }
 }
