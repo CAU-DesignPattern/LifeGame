@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class StoreActionTest {
@@ -40,5 +41,20 @@ class StoreActionTest {
         //when
         //then
         verify(this.menuController).addMenuItem(menu, menuItem, this.storeAction);
+    }
+
+    @Test
+    @DisplayName("[action] action 기능 테스트")
+    void actionTest() {
+
+        //given
+        int[][] liveCells = {{0, 0}};
+        when(this.model.getLiveCells()).thenReturn(liveCells);
+
+        //when
+        this.storeAction.action();
+
+        //then
+        verify(this.service).store(liveCells);
     }
 }

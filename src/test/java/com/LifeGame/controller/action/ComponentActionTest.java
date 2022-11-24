@@ -8,9 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.awt.*;
+
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ComponentActionTest {
@@ -34,5 +38,21 @@ class ComponentActionTest {
         //when
         //then
         verify(this.lifeController).addComponentAction(this.componentAction);
+    }
+
+    @Test
+    @DisplayName("[action] action 기능 테스트")
+    void actionTest() {
+
+        //given
+        Rectangle bounds = Mockito.mock(Rectangle.class);
+        when(this.lifePanel.getBounds()).thenReturn(bounds);
+        when(this.lifePanel.getWidthInCells()).thenReturn(1);
+
+        //when
+        this.componentAction.action();
+
+        //then
+        verify(this.lifePanel).setBounds(bounds);
     }
 }

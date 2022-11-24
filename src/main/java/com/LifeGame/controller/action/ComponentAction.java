@@ -21,8 +21,8 @@ public class ComponentAction extends Action {
     @Override
     public void action() {
         Rectangle bounds = this.lifePanel.getBounds();
-        bounds.height /= this.lifePanel.getOutermostCell().widthInCells();
-        bounds.height *= this.lifePanel.getOutermostCell().widthInCells();
+        bounds.height /= this.lifePanel.getWidthInCells();
+        bounds.height *= this.lifePanel.getWidthInCells();
         bounds.width = bounds.height;
         this.lifePanel.setBounds(bounds);
     }

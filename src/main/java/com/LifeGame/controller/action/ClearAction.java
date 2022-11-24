@@ -24,7 +24,7 @@ public class ClearAction extends Action {
 
     @Override
     public void action() {
-        this.lifePanel.getOutermostCell().clear();
+        this.lifePanel.clearCell();
         this.lifePanel.repaint();
         this.model.clearMap();
     }

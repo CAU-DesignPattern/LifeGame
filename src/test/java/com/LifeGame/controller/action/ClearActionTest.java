@@ -41,4 +41,18 @@ class ClearActionTest {
         //then
         verify(this.menuController).addMenuItem(menu, menuItem, this.clearAction);
     }
+
+    @Test
+    @DisplayName("[action] action 기능 테스트")
+    void actionTest() {
+
+        //given
+        //when
+        this.clearAction.action();
+
+        //then
+        verify(this.lifePanel).clearCell();
+        verify(this.lifePanel).repaint();
+        verify(this.model).clearMap();
+    }
 }

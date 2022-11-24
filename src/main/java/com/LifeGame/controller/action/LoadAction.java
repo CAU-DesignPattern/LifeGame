@@ -32,7 +32,7 @@ public class LoadAction extends Action {
         try {
             int[][] liveCells = this.service.load();
 
-            this.lifePanel.getOutermostCell().clear();
+            this.lifePanel.clearCell();
             Rectangle bounds = this.lifePanel.getBounds();
             bounds.x = 0;
             bounds.y = 0;

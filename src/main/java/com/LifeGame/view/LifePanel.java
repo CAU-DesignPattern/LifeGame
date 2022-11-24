@@ -63,6 +63,14 @@ public class LifePanel extends JPanel {
         return this.outermostCell;
     }
 
+    public int getWidthInCells() {
+        return this.outermostCell.widthInCells();
+    }
+
+    public void clearCell() {
+        this.outermostCell.clear();
+    }
+
     public void setComponentListener(Action action) {
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
