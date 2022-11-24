@@ -15,7 +15,7 @@ public class ClearAction extends Action {
     private final Model model;
 
     @Autowired
-    public ClearAction(LifePanel lifePanel, Model model, MenuController menuController) {
+    public ClearAction(MenuController menuController, LifePanel lifePanel, Model model) {
         this.lifePanel = lifePanel;
         this.model = model;
 

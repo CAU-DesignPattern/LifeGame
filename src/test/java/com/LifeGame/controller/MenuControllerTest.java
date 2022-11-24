@@ -18,11 +18,11 @@ import static org.mockito.Mockito.verify;
 class MenuControllerTest {
 
     @Mock
-    View view;
+    private View view;
     @Mock
-    MenuBar menuBar;
+    private MenuBar menuBar;
     @InjectMocks
-    MenuController menuController;
+    private MenuController menuController;
 
     @BeforeEach
     void setUp() {

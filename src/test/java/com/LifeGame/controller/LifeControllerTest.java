@@ -12,19 +12,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.awt.*;
-
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class LifeControllerTest {
 
     @Mock
-    View view;
+    private View view;
     @Mock
-    LifePanel lifePanel;
+    private LifePanel lifePanel;
     @InjectMocks
-    LifeController lifeController;
+    private LifeController lifeController;
 
     @BeforeEach
     void setUp() {
