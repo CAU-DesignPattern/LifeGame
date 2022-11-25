@@ -1,6 +1,6 @@
 package com.LifeGame.view;
 
-import com.LifeGame.controller.action.Action;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -9,12 +9,15 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 @Component
-public class LifePanel extends JPanel {
+public class LifePanel extends JPanel implements Observer {
 
     private final Cell outermostCell;
 
+    @Autowired
     public LifePanel() {
         /**
          * The default height and width of a Neighborhood in cells.
@@ -35,6 +38,27 @@ public class LifePanel extends JPanel {
 
         int DEFAULT_CELL_SIZE = 8;
         final Dimension PREFERRED_SIZE = new Dimension(this.outermostCell.widthInCells() * DEFAULT_CELL_SIZE, this.outermostCell.widthInCells() * DEFAULT_CELL_SIZE);
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Rectangle bounds = getBounds();
+                bounds.x = 0;
+                bounds.y = 0;
+                getOutermostCell().userClicked(e.getPoint(), bounds);
+                repaint();
+            }
+        });
+
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                Rectangle bounds = getBounds();
+                bounds.height /= getWidthInCells();
+                bounds.height *= getWidthInCells();
+                bounds.width = bounds.height;
+                setBounds(bounds);
+            }
+        });
 
         setBackground(Color.white);
         setPreferredSize(PREFERRED_SIZE);
@@ -67,24 +91,8 @@ public class LifePanel extends JPanel {
         return this.outermostCell.widthInCells();
     }
 
-    public void clearCell() {
-        this.outermostCell.clear();
-    }
+    @Override
+    public void update(Observable o, Object arg) {
 
-    public void setComponentListener(Action action) {
-        this.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                action.action();
-            }
-        });
-    }
-
-    public void setMouseListener(Action action) {
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                action.action(e.getPoint());
-            }
-        });
     }
 }

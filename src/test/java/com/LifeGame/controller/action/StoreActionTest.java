@@ -3,6 +3,7 @@ package com.LifeGame.controller.action;
 import com.LifeGame.controller.MenuController;
 import com.LifeGame.model.Model;
 import com.LifeGame.service.Service;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -31,30 +33,23 @@ class StoreActionTest {
     }
 
     @Test
-    @DisplayName("[constructor] menuController의 addMenuItem 메서드를 호출하고 파라미터가 잘 넘어가는지 테스트")
-    void constructorTest() {
-
-        //given
-        String menu = "Grid";
-        String menuItem = "Store";
-
-        //when
-        //then
-        verify(this.menuController).addMenuItem(menu, menuItem, this.storeAction);
-    }
-
-    @Test
     @DisplayName("[action] action 기능 테스트")
     void actionTest() {
 
         //given
         int[][] liveCells = {{0, 0}};
+        int mapSize = 0;
         when(this.model.getLiveCells()).thenReturn(liveCells);
+        when(this.model.getMapSize()).thenReturn(mapSize);
 
         //when
         this.storeAction.action();
 
         //then
-        verify(this.service).store(liveCells);
+        verify(this.service).store(argThat(mapData -> {
+            Assertions.assertEquals(mapSize, mapData.getMapSize());
+            Assertions.assertEquals(liveCells, mapData.getLiveCells());
+            return true;
+        }));
     }
 }

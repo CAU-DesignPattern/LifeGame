@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Service {
 
-    public int[][] load() {
-        return null;
+    public MapData load() throws InvalidFileLoadedException {
+        throw new InvalidFileLoadedException();
     }
 
-    public void store(int[][] liveCells) {
+    public void store(MapData mapData) {
 
     }
 }
