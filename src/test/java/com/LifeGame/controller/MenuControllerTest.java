@@ -1,16 +1,15 @@
 package com.LifeGame.controller;
 
-import com.LifeGame.controller.action.Action;
-import com.LifeGame.view.View;
-import com.LifeGame.view.menu.MenuBar;
+import com.LifeGame.controller.action.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.HashMap;
 
 import static org.mockito.Mockito.verify;
 
@@ -18,9 +17,25 @@ import static org.mockito.Mockito.verify;
 class MenuControllerTest {
 
     @Mock
-    private View view;
+    private ClearAction clearAction;
     @Mock
-    private MenuBar menuBar;
+    private LoadAction loadAction;
+    @Mock
+    private StoreAction storeAction;
+    @Mock
+    private ExitAction exitAction;
+    @Mock
+    private HaltAction haltAction;
+    @Mock
+    private TickAction tickAction;
+    @Mock
+    private AgonizingAction agonizingAction;
+    @Mock
+    private SlowAction slowAction;
+    @Mock
+    private MediumAction mediumAction;
+    @Mock
+    private FastAction fastAction;
     @InjectMocks
     private MenuController menuController;
 
@@ -29,18 +44,36 @@ class MenuControllerTest {
     }
 
     @Test
-    @DisplayName("[addMenuItem] MenuBar의 적절한 메서드를 호출하고 파라미터가 잘 넘어가는지 테스트")
-    void addMenuItemTest() {
+    @DisplayName("[action] action 기능 테스트")
+    void actionTest() {
 
         //given
-        String menu = "test menu";
-        String menuItem = "test menu item";
-        Action action = Mockito.mock(Action.class);
+        HashMap<String, Action> gridMenuItems = new HashMap<>();
+        gridMenuItems.put("Clear", this.clearAction);
+        gridMenuItems.put("Load", this.loadAction);
+        gridMenuItems.put("Store", this.storeAction);
+        gridMenuItems.put("Exit", this.exitAction);
 
-        //when
-        this.menuController.addMenuItem(menu, menuItem, action);
+        HashMap<String, Action> goMenuItems = new HashMap<>();
+        goMenuItems.put("Halt", this.haltAction);
+        goMenuItems.put("Tick (Single Step)", this.tickAction);
+        goMenuItems.put("Agonizing", this.agonizingAction);
+        goMenuItems.put("Slow", this.slowAction);
+        goMenuItems.put("Medium", this.mediumAction);
+        goMenuItems.put("Fast", this.fastAction);
 
-        //then
-        verify(this.menuBar).addMenu(menu, menuItem, action);
+        for (String menuItem : gridMenuItems.keySet()) {
+            //when
+            menuController.action("Grid", menuItem);
+            //then
+            verify(gridMenuItems.get(menuItem)).action();
+        }
+
+        for (String menuItem : goMenuItems.keySet()) {
+            //when
+            menuController.action("Go", menuItem);
+            //then
+            verify(goMenuItems.get(menuItem)).action();
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.LifeGame.view.menu;
 
-import com.LifeGame.controller.action.Action;
+import com.LifeGame.controller.MenuController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,19 +10,24 @@ import java.util.HashMap;
 public class Menu extends JMenu {
 
     private String name;
+    private final MenuController menuController;
     private final HashMap<String, JMenuItem> menuItems = new HashMap<>();
 
-    public Menu(String name) {
+    public Menu(String name, MenuController menuController) {
         super(name);
         this.name = name;
+        this.menuController = menuController;
     }
 
-    public void addMenuItem(String name, Action action) {
+    public void addMenuItem(String name) {
         JMenuItem menuItem = new JMenuItem(name);
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                action.action();
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                JPopupMenu popupMenu = (JPopupMenu) menuItem.getParent();
+
+                menuController.action(((JMenu) popupMenu.getInvoker()).getActionCommand(), e.getActionCommand());
             }
         });
         this.add(menuItem);
