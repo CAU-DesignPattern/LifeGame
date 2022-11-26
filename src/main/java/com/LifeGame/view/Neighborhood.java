@@ -131,12 +131,20 @@ public final class Neighborhood implements Cell {
         Point position = new Point(columnOffset, rowOffset);
         Rectangle subcell = new Rectangle(0, 0, pixelsPerCell, pixelsPerCell);
 
-        grid[row][column].userClicked(position, subcell); //{=Neighborhood.userClicked.call}
+        grid[row][column].userClicked(position, subcell);
         amActive = true;
     }
 
     public int widthInCells() {
         return gridSize * grid[0][0].widthInCells();
     }
-}
 
+    public void clear() {
+        for (int row = 0; row < gridSize; ++row) {
+            for (int column = 0; column < gridSize; ++column) {
+                grid[row][column].clear();
+            }
+        }
+        amActive = false;
+    }
+}

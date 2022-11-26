@@ -1,5 +1,6 @@
 package com.LifeGame.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -8,41 +9,52 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 @Component
-public class LifePanel extends JPanel {
+public class LifePanel extends JPanel implements Observer {
 
     private final Cell outermostCell;
-    /**
-     * The default height and width of a Neighborhood in cells.
-     * If it's too big, you'll run too slowly because
-     * you have to update the entire block as a unit, so there's more
-     * to do. If it's too small, you have too many blocks to check.
-     * I've found that 8 is a good compromise.
-     */
-    private static final int DEFAULT_GRID_SIZE = 8;
 
-    /**
-     * The size of the smallest "atomic" cell---a Resident object.
-     * This size is extrinsic to a Resident (It's passed into the
-     * Resident's "draw yourself" method.
-     */
-    private static final int DEFAULT_CELL_SIZE = 8;
-
+    @Autowired
     public LifePanel() {
-        outermostCell = new Neighborhood(DEFAULT_GRID_SIZE, new Neighborhood(DEFAULT_GRID_SIZE, new Resident()));
-        final Dimension PREFERRED_SIZE = new Dimension(outermostCell.widthInCells() * DEFAULT_CELL_SIZE, outermostCell.widthInCells() * DEFAULT_CELL_SIZE);
+        /**
+         * The default height and width of a Neighborhood in cells.
+         * If it's too big, you'll run too slowly because
+         * you have to update the entire block as a unit, so there's more
+         * to do. If it's too small, you have too many blocks to check.
+         * I've found that 8 is a good compromise.
+         */
 
-        addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                // Make sure that the cells fit evenly into the
-                // total grid size so that each cell will be the
-                // same size. For example, in a 64x64 grid, the
-                // total size must be an even multiple of 63.
+        int DEFAULT_GRID_SIZE = 8;
+        this.outermostCell = new Neighborhood(DEFAULT_GRID_SIZE, new Neighborhood(DEFAULT_GRID_SIZE, new Resident()));
 
+        /**
+         * The size of the smallest "atomic" cell---a Resident object.
+         * This size is extrinsic to a Resident (It's passed into the
+         * Resident's "draw yourself" method.
+         */
+
+        int DEFAULT_CELL_SIZE = 8;
+        final Dimension PREFERRED_SIZE = new Dimension(this.outermostCell.widthInCells() * DEFAULT_CELL_SIZE, this.outermostCell.widthInCells() * DEFAULT_CELL_SIZE);
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
                 Rectangle bounds = getBounds();
-                bounds.height /= outermostCell.widthInCells();
-                bounds.height *= outermostCell.widthInCells();
+                bounds.x = 0;
+                bounds.y = 0;
+                getOutermostCell().userClicked(e.getPoint(), bounds);
+                repaint();
+            }
+        });
+
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                Rectangle bounds = getBounds();
+                bounds.height /= getWidthInCells();
+                bounds.height *= getWidthInCells();
                 bounds.width = bounds.height;
                 setBounds(bounds);
             }
@@ -53,16 +65,6 @@ public class LifePanel extends JPanel {
         setMaximumSize(PREFERRED_SIZE);
         setMinimumSize(PREFERRED_SIZE);
         setOpaque(true);
-
-        addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                Rectangle bounds = getBounds();
-                bounds.x = 0;
-                bounds.y = 0;
-                outermostCell.userClicked(e.getPoint(), bounds);
-                repaint();
-            }
-        });
     }
 
     /**
@@ -78,6 +80,19 @@ public class LifePanel extends JPanel {
         // corner of the screen. Pretend that it's at (0,0)
         panelBounds.x = 0;
         panelBounds.y = 0;
-        outermostCell.redraw(g, panelBounds, true);        //{=Universe.redraw1}
+        this.outermostCell.redraw(g, panelBounds, true);        //{=Universe.redraw1}
+    }
+
+    public Cell getOutermostCell() {
+        return this.outermostCell;
+    }
+
+    public int getWidthInCells() {
+        return this.outermostCell.widthInCells();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

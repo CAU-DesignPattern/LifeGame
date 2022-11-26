@@ -1,18 +1,26 @@
 package com.LifeGame.view.menu;
 
+import com.LifeGame.controller.MenuController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class MenuBarTest {
 
+    @Mock
+    private MenuController menuController;
+    @InjectMocks
     private MenuBar menuBar;
 
     @BeforeEach
     void setUp() {
-        this.menuBar = new MenuBar();
     }
 
     @Test
@@ -21,12 +29,14 @@ class MenuBarTest {
 
         //given
         String name = "test menu";
+        String menuItem = "test menu item";
 
         //when
-        this.menuBar.addMenu(name);
+        this.menuBar.addMenu(name, menuItem);
 
         //then
         assertEquals(name, this.menuBar.getMenu(name).getText());
+        assertEquals(menuItem, this.menuBar.getMenu(name).getMenuItem(menuItem).getText());
     }
 
     @Test
