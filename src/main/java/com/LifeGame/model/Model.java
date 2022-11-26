@@ -1,26 +1,40 @@
 package com.LifeGame.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Model {
 
     private int[][] map;
 
-    public Model(){
-        this.map = map;
+
+    public void clearMap() {  //map 초기화
+    }
+    public int getMapSize() {
+        return 0;
     }
 
-    public int[][] getMap(){
+    public void toggle(int[][] liveCells) {
+
+    }
+
+    public int[][] getLiveCells() {
+        return null;
+    }
+
+    public int[][] getMap() {
         return this.map;
     }
-    public void setMapSize(int n){
+
+    public void setMapSize(int n) {
         this.map = new int[n][n];
     }
 
     public void toggle(int x, int y) {
         // 좌표 설정 방식 - 그냥 배열이랑 똑같이 간다고 가정
-        if (this.map[x][y] == 0){
+        if (this.map[x][y] == 0) {
             this.map[x][y] = 1;
-        }
-        else{
+        } else {
             this.map[x][y] = 0;
         }
     }
@@ -54,6 +68,5 @@ public class Model {
             }
         }
         this.map = map;
-
     }
 }
