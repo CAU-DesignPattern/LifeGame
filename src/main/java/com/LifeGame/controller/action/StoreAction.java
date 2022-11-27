@@ -20,6 +20,6 @@ public class StoreAction implements Action {
 
     @Override
     public void action() {
-        this.service.store(new MapData(this.model.getMapSize(), this.model.getLiveCells()));
+        this.service.store(new MapData(this.model.getMapSize(), this.model.getMap()));
     }
 }

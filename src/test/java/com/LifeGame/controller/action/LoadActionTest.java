@@ -49,7 +49,7 @@ class LoadActionTest {
 
         //then
         verify(this.model).clearMap();
-        verify(this.model).toggle(liveCells);
+        verify(this.model).setMap(liveCells);
     }
 
     @Test

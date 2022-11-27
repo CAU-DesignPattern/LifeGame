@@ -2,24 +2,26 @@ package com.LifeGame.model;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class Model {
+import java.util.Observable;
 
+@Component
+public class Model extends Observable {
+
+    private int size;
     private int[][] map;
 
+    public void mapChanged() {
+        setChanged();
+        notifyObservers();
+    }
 
     public void clearMap() {  //map 초기화
+        this.map = new int[this.size][this.size];
+
+        this.mapChanged();
     }
     public int getMapSize() {
-        return 0;
-    }
-
-    public void toggle(int[][] liveCells) {
-
-    }
-
-    public int[][] getLiveCells() {
-        return null;
+        return size;
     }
 
     public int[][] getMap() {
@@ -27,6 +29,7 @@ public class Model {
     }
 
     public void setMapSize(int n) {
+        this.size = n;
         this.map = new int[n][n];
     }
 
@@ -37,6 +40,14 @@ public class Model {
         } else {
             this.map[x][y] = 0;
         }
+
+        this.mapChanged();
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+
+        this.mapChanged();
     }
 
     public void nextState(int[][] map) {
@@ -68,5 +79,7 @@ public class Model {
             }
         }
         this.map = map;
+
+        this.mapChanged();
     }
 }

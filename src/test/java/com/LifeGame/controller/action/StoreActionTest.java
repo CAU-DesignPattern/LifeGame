@@ -37,9 +37,9 @@ class StoreActionTest {
     void actionTest() {
 
         //given
-        int[][] liveCells = {{0, 0}};
+        int[][] map = {{0, 0}};
         int mapSize = 0;
-        when(this.model.getLiveCells()).thenReturn(liveCells);
+        when(this.model.getMap()).thenReturn(map);
         when(this.model.getMapSize()).thenReturn(mapSize);
 
         //when
@@ -48,7 +48,7 @@ class StoreActionTest {
         //then
         verify(this.service).store(argThat(mapData -> {
             Assertions.assertEquals(mapSize, mapData.getMapSize());
-            Assertions.assertEquals(liveCells, mapData.getLiveCells());
+            Assertions.assertEquals(map, mapData.getMap());
             return true;
         }));
     }
