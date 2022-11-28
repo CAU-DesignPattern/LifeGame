@@ -45,5 +45,17 @@ public final class Resident implements Cell {
     public int widthInCells() {
         return 1;
     }
+
+    public void	clear()	{
+        amAlive = false;
+    }
+
+    public Cell getCell(int x, int y) {
+        return this;
+    }
+
+    public boolean getAmAlive() {
+        return this.amAlive;
+    }
 }
 

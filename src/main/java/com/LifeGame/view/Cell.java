@@ -45,5 +45,9 @@ public interface Cell {
     int widthInCells();
 
     Cell create();
+
+    void clear();
+
+    Cell getCell(int x, int y);
 }
 
