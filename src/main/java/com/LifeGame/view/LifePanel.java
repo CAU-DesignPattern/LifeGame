@@ -101,6 +101,10 @@ public class LifePanel extends JPanel implements Observer {
         return this.outermostCell.widthInCells();
     }
 
+    public void clear() {
+        this.outermostCell.clear();
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Model) {
@@ -108,7 +112,7 @@ public class LifePanel extends JPanel implements Observer {
             bounds.x = 0;
             bounds.y = 0;
             int pixelsPerCell = bounds.width / 64;
-            this.outermostCell.clear();
+            this.clear();
             int[][] cells = ((Model) o).getMap();
             for (int i = 0; i < 64; i++) {
                 for (int j = 0; j < 64; j++) {

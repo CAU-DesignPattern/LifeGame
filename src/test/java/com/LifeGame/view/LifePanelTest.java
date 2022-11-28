@@ -15,17 +15,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class LifePanelTest {
 
     @Mock
     private LifeController lifeController;
-    @Mock
-    private Cell outermostCell;
-    //@Spy
+    @Spy
     @InjectMocks
     private LifePanel lifePanel;
 
@@ -48,15 +45,15 @@ public class LifePanelTest {
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = 512;
-        this.lifePanel.setBounds(bounds);
         Model model = Mockito.mock(Model.class);
         when(model.getMap()).thenReturn(cells);
+        when(this.lifePanel.getBounds()).thenReturn(bounds);
 
         //when
         this.lifePanel.update(model, null);
 
         //then
-        verify(this.outermostCell).clear();
+        verify(this.lifePanel).clear();
         for (int i = 0; i < 64; i++) {
             for (int j = 0; j < 64; j++) {
                 assertEquals(cells[i][j] == 1, ((Resident) this.lifePanel.getOutermostCell().getCell(i, j)).getAmAlive());
