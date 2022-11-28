@@ -27,7 +27,7 @@ public class LoadAction implements Action {
             MapData mapData = this.service.load();
             this.model.clearMap();
             this.model.setMapSize(mapData.getMapSize());
-            this.model.toggle(mapData.getLiveCells());
+            this.model.setMap(mapData.getMap());
         } catch (InvalidFileLoadedException e) {
             this.model.clearMap();
             // TODO: 실패 시 에러 Alert 표시

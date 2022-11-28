@@ -147,4 +147,13 @@ public final class Neighborhood implements Cell {
         }
         amActive = false;
     }
+
+    public Cell getCell(int x, int y) {
+        int row = y / 8;
+        int column = x / 8;
+        int rowOffset = y % 8;
+        int columnOffset = x % 8;
+
+        return this.grid[row][column].getCell(columnOffset, rowOffset);
+    }
 }

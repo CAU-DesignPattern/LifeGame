@@ -1,5 +1,7 @@
 package com.LifeGame.view;
 
+import com.LifeGame.controller.LifeController;
+import com.LifeGame.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +17,16 @@ import java.util.Observer;
 @Component
 public class LifePanel extends JPanel implements Observer {
 
+    private final LifeController lifeController;
     private final Cell outermostCell;
 
     @Autowired
-    public LifePanel() {
+    public LifePanel(LifeController lifeController) {
+
+        this.lifeController = lifeController;
+
+        this.lifeController.addObserver(this);
+
         /**
          * The default height and width of a Neighborhood in cells.
          * If it's too big, you'll run too slowly because
@@ -45,8 +53,11 @@ public class LifePanel extends JPanel implements Observer {
                 Rectangle bounds = getBounds();
                 bounds.x = 0;
                 bounds.y = 0;
-                getOutermostCell().userClicked(e.getPoint(), bounds);
-                repaint();
+                int pixelsPerCell = bounds.width / (DEFAULT_GRID_SIZE * DEFAULT_GRID_SIZE);
+                int row = e.getPoint().y / pixelsPerCell;
+                int column = e.getPoint().x / pixelsPerCell;
+
+                lifeController.mouseAction(row, column);
             }
         });
 
@@ -86,13 +97,31 @@ public class LifePanel extends JPanel implements Observer {
     public Cell getOutermostCell() {
         return this.outermostCell;
     }
-
     public int getWidthInCells() {
         return this.outermostCell.widthInCells();
     }
 
+    public void clear() {
+        this.outermostCell.clear();
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-
+        if (o instanceof Model) {
+            Rectangle bounds = this.getBounds();
+            bounds.x = 0;
+            bounds.y = 0;
+            int pixelsPerCell = bounds.width / 64;
+            this.clear();
+            int[][] cells = ((Model) o).getMap();
+            for (int i = 0; i < 64; i++) {
+                for (int j = 0; j < 64; j++) {
+                    if (cells[i][j] == 1) {
+                        this.outermostCell.userClicked(new Point(j * pixelsPerCell, i * pixelsPerCell), bounds);
+                    }
+                }
+            }
+            this.repaint();
+        }
     }
 }

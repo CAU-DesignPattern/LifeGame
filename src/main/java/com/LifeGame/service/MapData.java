@@ -8,5 +8,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MapData {
     private int mapSize;
-    private int[][] liveCells;
+    private int[][] map;
 }
