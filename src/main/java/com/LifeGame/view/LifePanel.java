@@ -97,7 +97,6 @@ public class LifePanel extends JPanel implements Observer {
     public Cell getOutermostCell() {
         return this.outermostCell;
     }
-
     public int getWidthInCells() {
         return this.outermostCell.widthInCells();
     }
@@ -105,7 +104,7 @@ public class LifePanel extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Model) {
-            Rectangle bounds = getBounds();
+            Rectangle bounds = this.getBounds();
             bounds.x = 0;
             bounds.y = 0;
             int pixelsPerCell = bounds.width / 64;

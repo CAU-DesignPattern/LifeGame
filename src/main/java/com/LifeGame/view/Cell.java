@@ -47,5 +47,7 @@ public interface Cell {
     Cell create();
 
     void clear();
+
+    Cell getCell(int x, int y);
 }
 

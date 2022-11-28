@@ -1,10 +1,14 @@
 package com.LifeGame.model;
 
+import com.LifeGame.view.LifePanel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 class ModelTest {
 
@@ -148,5 +152,20 @@ class ModelTest {
         this.model.nextState(arr3);
         int[][] ans3 = {{1,1,0},{1,0,1},{0,1,0}};
         assertArrayEquals(ans3, arr3);
+    }
+
+    @Test
+    @DisplayName("[mapChanged] mapChanged 호출 시 LifePanel에 update가 잘 호출는지 테스트")
+    void mapChangedTest() {
+
+        //given
+        LifePanel lifePanel = Mockito.mock(LifePanel.class);
+
+        //when
+        this.model.addObserver(lifePanel);
+        this.model.mapChanged();
+
+        //then
+        verify(lifePanel).update(any(), any());
     }
 }
