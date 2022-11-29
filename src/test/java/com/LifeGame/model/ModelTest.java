@@ -50,7 +50,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("SetMapSize : 5*5 test")
+    @DisplayName("[SetMapSize] 5*5 test")
     void setmapsize2() {
         //given
         this.model.setMapSize(5);
