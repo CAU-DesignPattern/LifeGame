@@ -129,7 +129,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("nextState : 3*3 test")
+    @DisplayName("[nextState] 3*3 test")
     void next1() {
 
         //Model m = mock(Model.class);
