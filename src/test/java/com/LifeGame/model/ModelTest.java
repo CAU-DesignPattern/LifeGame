@@ -107,7 +107,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : toggle 호출시 mapChanged 호출되는지 test")
+    @DisplayName("[toggle] toggle 호출시 mapChanged 호출되는지 test")
     void toggle() {
         //given
         this.model.setMapSize(3);
