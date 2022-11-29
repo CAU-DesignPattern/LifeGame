@@ -189,7 +189,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("Test : 통합 테스트")
+    @DisplayName("[Model] 통합 테스트")
     void entire() {
         this.model.setMapSize(3);
         this.model.toggle(0, 0);
