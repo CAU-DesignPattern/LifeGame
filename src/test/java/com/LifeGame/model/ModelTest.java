@@ -177,7 +177,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("nextState : nextState 호출시 mapChanged 2번 호출되는지 test")
+    @DisplayName("[nextState] nextState 호출시 mapChanged 2번 호출되는지 test")
     void nextstate() {
         //given
         int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
