@@ -147,7 +147,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("nextState : 4*4 test")
+    @DisplayName("[nextState] 4*4 test")
     void next2() {
         //given
         int[][] arr = {{0, 0, 0, 0}, {1, 0, 1, 0}, {0, 1, 1, 0}, {0, 1, 0, 0}};
