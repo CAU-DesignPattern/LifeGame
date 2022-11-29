@@ -92,10 +92,11 @@ class ModelTest {
     void next1() {
         //given
         int[][] arr = {{1, 1, 1}, {1, 0, 0}, {0, 0, 1}};
+        this.model.setMap(arr);
         int[][] ans = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
 
         //when
-        this.model.nextState(arr);
+        this.model.nextState();
 
         //then
         assertArrayEquals(ans, this.model.getMap());
@@ -106,10 +107,11 @@ class ModelTest {
     void next2() {
         //given
         int[][] arr = {{0, 0, 0, 0}, {1, 0, 1, 0}, {0, 1, 1, 0}, {0, 1, 0, 0}};
+        this.model.setMap(arr);
         int[][] ans = {{0, 0, 0, 0}, {0, 0, 1, 0}, {1, 0, 1, 0}, {0, 1, 1, 0}};
 
         //when
-        this.model.nextState(arr);
+        this.model.nextState();
 
         //then
         assertArrayEquals(ans, this.model.getMap());
@@ -120,10 +122,11 @@ class ModelTest {
     void next3() {
         //given
         int[][] arr = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 0}, {0, 1, 0, 1, 0}, {0, 1, 1, 1, 0}, {0, 0, 0, 0, 0}};
+        this.model.setMap(arr);
         int[][] ans = {{0, 0, 1, 0, 0}, {0, 1, 0, 1, 0}, {1, 0, 0, 0, 1}, {0, 1, 0, 1, 0}, {0, 0, 1, 0, 0}};
 
         //when
-        this.model.nextState(arr);
+        this.model.nextState();
 
         //then
         assertArrayEquals(ans, this.model.getMap());
@@ -142,14 +145,14 @@ class ModelTest {
         int[][] ans = {{1,1,1},{1,0,0},{0,0,1}};
         assertArrayEquals(ans, arr);
 
-        this.model.nextState(arr);
+        this.model.nextState();
         int[][] ans2 = {{1,1,0},{1,0,1},{0,0,0}};
         int[][] arr2 = this.model.getMap();
         assertArrayEquals(ans2, arr2);
 
         this.model.toggle(2,2);
         int[][] arr3 = this.model.getMap();
-        this.model.nextState(arr3);
+        this.model.nextState();
         int[][] ans3 = {{1,1,0},{1,0,1},{0,1,0}};
         assertArrayEquals(ans3, arr3);
     }
