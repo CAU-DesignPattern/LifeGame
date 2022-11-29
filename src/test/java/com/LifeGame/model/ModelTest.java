@@ -63,7 +63,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : 3*3 test")
+    @DisplayName("[toggle] 3*3 test")
     void toggle1() {
 
         //given
