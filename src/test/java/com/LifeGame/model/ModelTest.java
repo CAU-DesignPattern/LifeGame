@@ -26,7 +26,7 @@ class ModelTest {
 //    }
 
     @Test
-    @DisplayName("clearMap : clear map 호출시 mapChanged 호출되는지 test")
+    @DisplayName("[clearMap] clear map 호출시 mapChanged 호출되는지 test")
     void clear() {
         //given
         this.model.setMapSize(3);
