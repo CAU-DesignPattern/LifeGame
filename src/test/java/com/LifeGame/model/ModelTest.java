@@ -118,7 +118,7 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("setMap : setmap 호출시 mapChanged 호출되는지 test")
+    @DisplayName("[setMap] setmap 호출시 mapChanged 호출되는지 test")
     void setmap() {
         //given
         int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
