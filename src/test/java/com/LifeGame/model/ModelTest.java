@@ -20,10 +20,9 @@ class ModelTest {
     @Spy
     private Model model;
 
-//    @BeforeEach
-//    void setUp() {
-//        this.model = new Model();
-//    }
+    @BeforeEach
+    void setUp() {
+    }
 
     @Test
     @DisplayName("[clearMap] clear map 호출시 mapChanged 호출되는지 test")
