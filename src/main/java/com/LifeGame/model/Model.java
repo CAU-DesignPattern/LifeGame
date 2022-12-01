@@ -50,11 +50,11 @@ public class Model extends Observable {
         this.mapChanged();
     }
 
-    public void nextState(int[][] map) {
+    public void nextState() {
         int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
         int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-        int n = map.length;
-        int m = map[0].length;
+        int n = this.map.length;
+        int m = this.map[0].length;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -65,21 +65,22 @@ public class Model extends Observable {
                     int y = j + dy[k];
 
                     if (x < 0 || x >= n || y < 0 || y >= m) continue;
-                    if (map[x][y] == 1 || map[x][y] == 2) state++;
+                    if (this.map[x][y] == 1 || this.map[x][y] == 2) state++;
                 }
 
-                if (map[i][j] == 0 && state == 3) map[i][j] = 3;
-                if (map[i][j] == 1 && (state < 2 || state > 3)) map[i][j] = 2;
+                if (this.map[i][j] == 0 && state == 3) this.map[i][j] = 3;
+                if (this.map[i][j] == 1 && (state < 2 || state > 3)) this.map[i][j] = 2;
             }
         }
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                map[i][j] %= 2;
+                this.map[i][j] %= 2;
             }
         }
-        this.map = map;
+        // this.map = map;
 
         this.mapChanged();
     }
+
 }

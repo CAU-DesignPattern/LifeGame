@@ -16,6 +16,6 @@ public class TickAction implements Action {
 
     @Override
     public void action() {
-        this.model.nextState(this.model.getMap());
+        this.model.nextState();
     }
 }
