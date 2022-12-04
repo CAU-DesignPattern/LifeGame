@@ -229,27 +229,62 @@ class ModelTest {
 
     @Test
     @DisplayName("[nextState] generation test")
-    void nextstate_gen(){
-
+    void nextstate_gen() {
+        //given
         int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
         this.model.setMap(arr);
         //when
         this.model.nextState();
         this.model.nextState();
-
-        assertEquals(2,this.model.getGeneration());
+        //then
+        assertEquals(2, this.model.getGeneration());
     }
 
     @Test
     @DisplayName("[clearMap] clearmap시 generation이 0이 되는지 test")
-    void clearmap_gen(){
+    void clearmap_gen() {
         int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
         this.model.setMap(arr);
         //when
         this.model.nextState();
         this.model.nextState();
         this.model.clearMap();
-
-        assertEquals(0,this.model.getGeneration());
+        //then
+        assertEquals(0, this.model.getGeneration());
     }
+
+    @Test
+    @DisplayName("[toggle&clearmap] toggle시 livecell 수가 변하는지 test")
+    void toggle_cell() {
+        this.model.setMapSize(3);
+        this.model.toggle(0, 0);
+        this.model.toggle(0, 1);
+        this.model.toggle(0, 2);
+        this.model.toggle(1, 0);
+        this.model.toggle(2, 2);
+        this.model.toggle(1, 0);
+
+        assertEquals(4, this.model.getLivecell());
+
+        this.model.clearMap();
+
+        assertEquals(0, this.model.getLivecell());
+    }
+
+    @Test
+    @DisplayName("[nextState] nextState시 livecell수가 변하는지 test")
+    void next_cell() {
+        int[][] arr = {{1, 1, 1}, {1, 0, 0}, {0, 0, 1}};
+        this.model.setMap(arr);
+        this.model.nextState();
+
+        assertEquals(4, this.model.getLivecell());
+        //int[][] ans2 = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
+
+        this.model.toggle(2, 2);
+        this.model.nextState();
+        //int[][] ans3 = {{1, 1, 0}, {1, 0, 1}, {0, 1, 0}};
+        assertEquals(5, this.model.getLivecell());
+    }
+
 }

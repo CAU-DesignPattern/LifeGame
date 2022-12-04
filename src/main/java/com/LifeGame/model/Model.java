@@ -20,8 +20,10 @@ public class Model extends Observable {
     public void clearMap() {  //map 초기화
         this.map = new int[this.size][this.size];
         this.generation = 0;
+        this.livecell = 0;
         this.mapChanged();
     }
+
     public int getMapSize() {
         return size;
     }
@@ -30,8 +32,12 @@ public class Model extends Observable {
         return this.map;
     }
 
-    public int getGeneration(){
+    public int getGeneration() {
         return this.generation;
+    }
+
+    public int getLivecell() {
+        return this.livecell;
     }
 
     public void setMapSize(int n) {
@@ -43,8 +49,10 @@ public class Model extends Observable {
         // 좌표 설정 방식 - 그냥 배열이랑 똑같이 간다고 가정
         if (this.map[x][y] == 0) {
             this.map[x][y] = 1;
+            this.livecell += 1;
         } else {
             this.map[x][y] = 0;
+            this.livecell -= 1;
         }
 
         this.mapChanged();
@@ -61,6 +69,7 @@ public class Model extends Observable {
         int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
         int n = this.map.length;
         int m = this.map[0].length;
+        this.livecell = 0;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -82,6 +91,7 @@ public class Model extends Observable {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 this.map[i][j] %= 2;
+                if (this.map[i][j] == 1) livecell += 1;
             }
         }
         // this.map = map;
