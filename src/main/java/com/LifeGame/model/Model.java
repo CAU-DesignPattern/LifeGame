@@ -9,6 +9,8 @@ public class Model extends Observable {
 
     private int size;
     private int[][] map;
+    private int generation;
+    private int livecell;
 
     public void mapChanged() {
         setChanged();
@@ -17,7 +19,7 @@ public class Model extends Observable {
 
     public void clearMap() {  //map 초기화
         this.map = new int[this.size][this.size];
-
+        this.generation = 0;
         this.mapChanged();
     }
     public int getMapSize() {
@@ -26,6 +28,10 @@ public class Model extends Observable {
 
     public int[][] getMap() {
         return this.map;
+    }
+
+    public int getGeneration(){
+        return this.generation;
     }
 
     public void setMapSize(int n) {
@@ -80,6 +86,9 @@ public class Model extends Observable {
         }
         // this.map = map;
 
+        this.generation += 1;
         this.mapChanged();
     }
+
 }
+
