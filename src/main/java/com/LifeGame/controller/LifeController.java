@@ -26,7 +26,7 @@ public class LifeController implements Observer {
         this.model = model;
         this.model.setMapSize(64);
         this.patternModel = patternModel;
-        patternModel.addObserver(this);
+        this.patternModel.addObserver(this);
 
         this.drawBehavior = drawBehavior;
         this.defaultDrawBehavior = defaultDrawBehavior;
