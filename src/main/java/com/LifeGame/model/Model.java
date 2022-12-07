@@ -50,6 +50,14 @@ public class Model extends Observable {
         this.mapChanged();
     }
 
+    public void draw(int[][] bluePrint, int x, int y) {
+        for (int i = 0; i < Math.min(bluePrint.length, this.size - x) ; i++) {
+            System.arraycopy(bluePrint[i], 0, this.map[x + i], y, Math.min(bluePrint[0].length, this.size - y));
+        }
+
+        this.mapChanged();
+    }
+
     public void nextState() {
         int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
         int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
