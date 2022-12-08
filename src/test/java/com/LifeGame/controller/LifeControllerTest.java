@@ -1,7 +1,6 @@
 package com.LifeGame.controller;
 
 import com.LifeGame.controller.drawBehavior.DefaultDrawBehavior;
-import com.LifeGame.controller.drawBehavior.DrawBehavior;
 import com.LifeGame.controller.drawBehavior.PatternDrawBehavior;
 import com.LifeGame.model.Model;
 import com.LifeGame.model.PatternModel;
@@ -14,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,13 +26,10 @@ class LifeControllerTest {
     private PatternModel patternModel;
 
     @Mock
-    private DrawBehavior drawBehavior;
-    @Mock
     private DefaultDrawBehavior defaultDrawBehavior;
     @Mock
     private PatternDrawBehavior patternDrawBehavior;
 
-    @Spy
     @InjectMocks
     private LifeController lifeController;
 
@@ -50,6 +47,7 @@ class LifeControllerTest {
 
         //when
         this.lifeController.mouseAction(x, y);
+        this.lifeController.setDrawBehavior(this.defaultDrawBehavior);
 
         //then
         verify(this.defaultDrawBehavior).draw(x, y);
@@ -66,7 +64,7 @@ class LifeControllerTest {
         this.lifeController.update(this.patternModel, null);
 
         //then
-        verify(this.lifeController).setDrawBehavior(this.defaultDrawBehavior);
+        assertEquals(this.defaultDrawBehavior, this.lifeController.getDrawBehavior());
     }
 
     @Test
@@ -80,6 +78,6 @@ class LifeControllerTest {
         this.lifeController.update(this.patternModel, null);
 
         //then
-        verify(this.lifeController).setDrawBehavior(this.patternDrawBehavior);
+        assertEquals(this.patternDrawBehavior, this.lifeController.getDrawBehavior());
     }
 }

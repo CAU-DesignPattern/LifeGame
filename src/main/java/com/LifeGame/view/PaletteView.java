@@ -1,18 +1,15 @@
 package com.LifeGame.view;
 
-import com.LifeGame.controller.LifeController;
 import com.LifeGame.controller.PaletteController;
-import com.LifeGame.controller.drawBehavior.DefaultDrawBehavior;
-import com.LifeGame.controller.drawBehavior.PatternDrawBehavior;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Component
 public class PaletteView extends JFrame {
@@ -114,7 +111,12 @@ public class PaletteView extends JFrame {
         });
 
         for (int i = 1; i < 7; i++) {
-            this.getContentPane().add(new PatternImagePanel(paletteController, i, (new ClassPathResource("patterns/" + i + ".png")).getInputStream(), bluePrints.get(i - 1)));
+            this.getContentPane().add(new PatternImagePanel(
+                    paletteController, i,
+                    new ImageIcon(ImageIO.read((new ClassPathResource("patterns/" + i + ".png")).getInputStream())).getImage().getScaledInstance(85, 85, Image.SCALE_SMOOTH),
+                    bluePrints.get(i - 1)
+                    )
+            );
         }
     }
 }

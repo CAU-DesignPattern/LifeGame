@@ -5,6 +5,7 @@ import com.LifeGame.controller.drawBehavior.DrawBehavior;
 import com.LifeGame.controller.drawBehavior.PatternDrawBehavior;
 import com.LifeGame.model.Model;
 import com.LifeGame.model.PatternModel;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 @Component
+@Getter
 public class LifeController implements Observer {
 
     private final Model model;
@@ -35,6 +37,10 @@ public class LifeController implements Observer {
 
     public void setDrawBehavior(DrawBehavior drawBehavior) {
         this.drawBehavior = drawBehavior;
+    }
+
+    public DrawBehavior getDrawBehavior() {
+        return this.drawBehavior;
     }
 
     public void addObserver(Observer o) {

@@ -21,13 +21,13 @@ public class PatternImagePanel extends JPanel implements Observer {
     private final Image image;
     private final int[][] bluePrint;
 
-    public PatternImagePanel(PaletteController paletteController, int id, InputStream inputStream, int[][] bluePrint) throws IOException {
+    public PatternImagePanel(PaletteController paletteController, int id, Image image, int[][] bluePrint) throws IOException {
         this.paletteController = paletteController;
         this.bluePrint = bluePrint;
         this.paletteController.addObserver(this);
 
         this.id = id;
-        this.image = new ImageIcon(ImageIO.read(inputStream)).getImage().getScaledInstance(85, 85, Image.SCALE_SMOOTH);
+        this.image = image;
 
         this.addMouseListener(new MouseAdapter() {
             @Override

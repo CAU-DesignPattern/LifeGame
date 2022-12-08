@@ -43,7 +43,7 @@ class WorkerTest {
 
         //then
         assertTrue(((Thread) field.get(this.worker)).isAlive());
-        assertNotEquals(prev, (Thread) field.get(this.worker));
+        assertNotEquals(prev, field.get(this.worker));
     }
 
     @Test
@@ -81,7 +81,7 @@ class WorkerTest {
 
         //then
         assertTrue(((Thread) field.get(this.worker)).isInterrupted());
-        assertEquals(prev, (Thread) field.get(this.worker));
+        assertEquals(prev, field.get(this.worker));
     }
 
     @Test
@@ -98,6 +98,6 @@ class WorkerTest {
         this.worker.stopThread();
 
         //then
-        assertNull((Thread) field.get(this.worker));
+        assertNull(field.get(this.worker));
     }
 }
