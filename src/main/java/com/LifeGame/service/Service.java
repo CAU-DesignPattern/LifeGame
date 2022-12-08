@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
-import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
 
 @Component
 public class Service {
@@ -19,7 +17,7 @@ public class Service {
                                     final String description,
                                     final String selectButtonText)
             throws FileNotFoundException {
-        javax.swing.filechooser.FileFilter filter =
+        FileFilter filter =
                 new FileFilter() {
                     public boolean accept(File f) {
                         return f.isDirectory()
