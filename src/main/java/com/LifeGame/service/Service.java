@@ -47,7 +47,6 @@ public class Service {
         try {
             // JSON 타입의 파일 -> 객체로 변환
             MapData mapData = loadMapper.readValue(new FileInputStream(this.userSelected(".",".json","JSON File","Load")), MapData.class);
-            System.out.println(mapData);
             return mapData;
 
         } catch (JsonGenerationException e) {
