@@ -1,6 +1,6 @@
-package com.LifeGame.controller.action;
+package com.LifeGame.controller;
 
-import com.LifeGame.worker.Worker;
+import com.LifeGame.model.PatternModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,27 +12,28 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class SlowActionTest {
+class PaletteControllerTest {
 
     @Mock
-    private Worker worker;
+    private PatternModel patternModel;
     @InjectMocks
-    private SlowAction slowAction;
+    private PaletteController paletteController;
 
     @BeforeEach
     void setUp() {
     }
 
     @Test
-    @DisplayName("[action] action 기능 테스트")
-    void actionTest() {
+    @DisplayName("[clickAction] action 기능 테스트")
+    void clickActionTest() {
 
         //given
+        int id = 0;
+        int[][] bluePrint = new int[][] {{0}};
         //when
-        this.slowAction.action();
+        this.paletteController.clickAction(id, bluePrint);
 
         //then
-        verify(this.worker).setSpeed(150);
-        verify(this.worker).startThread();
+        verify(this.patternModel).changePattern(id, bluePrint);
     }
 }

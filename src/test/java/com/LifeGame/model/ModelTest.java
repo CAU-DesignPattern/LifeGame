@@ -2,26 +2,42 @@ package com.LifeGame.model;
 
 import com.LifeGame.view.LifePanel;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
+@ExtendWith(MockitoExtension.class)
 class ModelTest {
 
+    @Spy
     private Model model;
 
     @BeforeEach
     void setUp() {
-        this.model = new Model();
     }
 
     @Test
-    @DisplayName("SetMapSize : 3*3 test")
-    void setmap1() {
+    @DisplayName("[clearMap] clear map 호출시 mapChanged 호출되는지 test")
+    void clearMapTest() {
+        //given
+        this.model.setMapSize(3);
+        //when
+        this.model.clearMap();
+        //then
+        verify(this.model).mapChanged();
+    }
+
+    @Test
+    @DisplayName("[SetMapSize] 3*3 test")
+    void setMapSize1Test() {
         //given
         this.model.setMapSize(3);
 
@@ -33,8 +49,8 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("SetMapSize : 5*5 test")
-    void setmap2() {
+    @DisplayName("[SetMapSize] 5*5 test")
+    void setMapSize2Test() {
         //given
         this.model.setMapSize(5);
 
@@ -46,8 +62,9 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : 3*3 test")
-    void toggle1() {
+    @DisplayName("[toggle] 3*3 test")
+    void toggle1Test() {
+
         //given
         this.model.setMapSize(3);
 
@@ -60,11 +77,11 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : 1 -> 0 test")
-    void toggle2() {
+    @DisplayName("[toggle] 1 -> 0 test")
+    void toggle2Test() {
         //given
         this.model.setMapSize(4);
-        this.model.toggle(1,3);
+        this.model.toggle(1, 3);
 
         //when
         this.model.toggle(1, 3);
@@ -75,8 +92,8 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : 5*5 test")
-    void toggle3() {
+    @DisplayName("[toggle] 5*5 test")
+    void toggle3Test() {
         //given
         this.model.setMapSize(5);
 
@@ -87,29 +104,93 @@ class ModelTest {
         //then
         assertArrayEquals(ans, this.model.getMap());
     }
+
     @Test
-    @DisplayName("nextState : 3*3 test")
-    void next1() {
+    @DisplayName("[toggle] toggle 호출시 mapChanged 호출되는지 test")
+    void toggleTest() {
         //given
-        int[][] arr = {{1, 1, 1}, {1, 0, 0}, {0, 0, 1}};
-        int[][] ans = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
-
+        this.model.setMapSize(3);
         //when
-        this.model.nextState(arr);
-
+        this.model.toggle(1, 1);
         //then
-        assertArrayEquals(ans, this.model.getMap());
+        verify(this.model).mapChanged();
     }
 
     @Test
-    @DisplayName("nextState : 4*4 test")
-    void next2() {
+    @DisplayName("[setMap] setmap 호출시 mapChanged 호출되는지 test")
+    void setMapTest() {
+        //given
+        int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+        //when
+        this.model.setMap(arr);
+        //then
+        verify(this.model).mapChanged();
+    }
+
+    @Test
+    @DisplayName("[draw] draw 기능 테스트")
+    void draw1Test() {
+
+        //given
+        this.model.setMapSize(3);
+
+        int[][] bluePrint = new int[][] {{0, 1}, {1, 0}};
+        int x = 0;
+        int y = 0;
+
+        //when
+        this.model.draw(bluePrint, x, y);
+        //then
+        assertArrayEquals(new int[][] {{0, 1, 0}, {1, 0, 0}, {0, 0, 0}}, this.model.getMap());
+        verify(this.model).mapChanged();
+    }
+
+    @Test
+    @DisplayName("[draw] 그림이 잘려야 할 때 draw 기능 테스트")
+    void draw2Test() {
+
+        //given
+        this.model.setMapSize(3);
+
+        int[][] bluePrint = new int[][] {{0, 1, 1, 0}, {1, 0, 1, 1}};
+        int x = 1;
+        int y = 1;
+
+        //when
+        this.model.draw(bluePrint, x, y);
+        //then
+        assertArrayEquals(new int[][] {{0, 0, 0}, {0, 0, 1}, {0, 1, 0}}, this.model.getMap());
+        verify(this.model).mapChanged();
+    }
+
+    @Test
+    @DisplayName("[nextState] 3*3 test")
+    void nextState1Test() {
+
+        //Model m = mock(Model.class);
+        //given
+        int[][] arr = {{1, 1, 1}, {1, 0, 0}, {0, 0, 1}};
+        this.model.setMap(arr);
+        int[][] ans = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
+
+        //when
+        this.model.nextState();
+
+        //then
+        assertArrayEquals(ans, this.model.getMap());
+
+    }
+
+    @Test
+    @DisplayName("[nextState] 4*4 test")
+    void nextState2Test() {
         //given
         int[][] arr = {{0, 0, 0, 0}, {1, 0, 1, 0}, {0, 1, 1, 0}, {0, 1, 0, 0}};
+        this.model.setMap(arr);
         int[][] ans = {{0, 0, 0, 0}, {0, 0, 1, 0}, {1, 0, 1, 0}, {0, 1, 1, 0}};
 
         //when
-        this.model.nextState(arr);
+        this.model.nextState();
 
         //then
         assertArrayEquals(ans, this.model.getMap());
@@ -117,40 +198,53 @@ class ModelTest {
 
     @Test
     @DisplayName("nextState : 5*5 test")
-    void next3() {
+    void nextState3Test() {
         //given
         int[][] arr = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 0}, {0, 1, 0, 1, 0}, {0, 1, 1, 1, 0}, {0, 0, 0, 0, 0}};
+        this.model.setMap(arr);
         int[][] ans = {{0, 0, 1, 0, 0}, {0, 1, 0, 1, 0}, {1, 0, 0, 0, 1}, {0, 1, 0, 1, 0}, {0, 0, 1, 0, 0}};
 
         //when
-        this.model.nextState(arr);
+        this.model.nextState();
 
         //then
         assertArrayEquals(ans, this.model.getMap());
     }
 
     @Test
-    @DisplayName("Test : 통합 테스트")
-    void entire(){
+    @DisplayName("[nextState] nextState 호출시 mapChanged 2번 호출되는지 test")
+    void nextStateTest() {
+        //given
+        int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+        this.model.setMap(arr);
+        //when
+        this.model.nextState();
+        //then
+        verify(this.model, times(2)).mapChanged();
+    }
+
+    @Test
+    @DisplayName("[Model] 통합 테스트")
+    void modelTest() {
         this.model.setMapSize(3);
-        this.model.toggle(0,0);
-        this.model.toggle(0,1);
-        this.model.toggle(0,2);
-        this.model.toggle(1,0);
-        this.model.toggle(2,2);
+        this.model.toggle(0, 0);
+        this.model.toggle(0, 1);
+        this.model.toggle(0, 2);
+        this.model.toggle(1, 0);
+        this.model.toggle(2, 2);
         int[][] arr = this.model.getMap();
-        int[][] ans = {{1,1,1},{1,0,0},{0,0,1}};
+        int[][] ans = {{1, 1, 1}, {1, 0, 0}, {0, 0, 1}};
         assertArrayEquals(ans, arr);
 
-        this.model.nextState(arr);
-        int[][] ans2 = {{1,1,0},{1,0,1},{0,0,0}};
+        this.model.nextState();
+        int[][] ans2 = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
         int[][] arr2 = this.model.getMap();
         assertArrayEquals(ans2, arr2);
 
-        this.model.toggle(2,2);
+        this.model.toggle(2, 2);
         int[][] arr3 = this.model.getMap();
-        this.model.nextState(arr3);
-        int[][] ans3 = {{1,1,0},{1,0,1},{0,1,0}};
+        this.model.nextState();
+        int[][] ans3 = {{1, 1, 0}, {1, 0, 1}, {0, 1, 0}};
         assertArrayEquals(ans3, arr3);
     }
 
@@ -159,10 +253,11 @@ class ModelTest {
     void mapChangedTest() {
 
         //given
-        LifePanel lifePanel = Mockito.mock(LifePanel.class);
+        LifePanel lifePanel = mock(LifePanel.class);
+
+        this.model.addObserver(lifePanel);
 
         //when
-        this.model.addObserver(lifePanel);
         this.model.mapChanged();
 
         //then
