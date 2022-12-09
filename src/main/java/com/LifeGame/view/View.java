@@ -13,14 +13,16 @@ public class View extends JFrame {
     private final LifePanel lifePanel;
     private final MenuBar menuBar;
     private final StatusLabel statusLabel;
+    private final PaletteView paletteView;
 
     @Autowired
-    public View(LifePanel lifePanel, MenuBar menuBar, StatusLabel statusLabel) {
+    public View(LifePanel lifePanel, MenuBar menuBar, StatusLabel statusLabel, PaletteView paletteView) {
         super("The Game of Life. " + "(c)2003 Allen I. Holub <http://www.holub.com>");
 
         this.lifePanel = lifePanel;
         this.menuBar = menuBar;
         this.statusLabel = statusLabel;
+        this.paletteView = paletteView;
 
         this.initMenu();
         this.initUI();
@@ -38,6 +40,9 @@ public class View extends JFrame {
         this.menuBar.addMenu("Go", "Slow");
         this.menuBar.addMenu("Go", "Medium");
         this.menuBar.addMenu("Go", "Fast");
+
+        this.menuBar.addMenu("Palette", "Show");
+        this.menuBar.addMenu("Palette", "Hide");
     }
 
     private void initUI() {
@@ -46,5 +51,13 @@ public class View extends JFrame {
         this.setJMenuBar(this.menuBar);
         this.getContentPane().add(this.lifePanel, BorderLayout.CENTER);
         this.getContentPane().add(this.statusLabel, BorderLayout.SOUTH);
+
+        Point point = this.getLocation();
+        Dimension dimension = this.getPreferredSize();
+        point.x += dimension.width;
+        this.paletteView.setLocation(point);
+        dimension.width = 100;
+        dimension.height = 100 * 6;
+        this.paletteView.setPreferredSize(dimension);
     }
 }

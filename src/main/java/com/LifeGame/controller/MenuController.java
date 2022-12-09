@@ -23,13 +23,14 @@ public class MenuController {
     private final SlowAction slowAction;
     private final MediumAction mediumAction;
     private final FastAction fastAction;
-
+    private final ShowAction showAction;
+    private final HideAction hideAction;
     private final HashMap<String, HashMap<String, Action>> actions = new HashMap<>();
 
     @Autowired
     public MenuController(Service service, Model model,
                           ClearAction clearAction, LoadAction loadAction, StoreAction storeAction, ExitAction exitAction,
-                          HaltAction haltAction, TickAction tickAction, AgonizingAction agonizingAction, SlowAction slowAction, MediumAction mediumAction, FastAction fastAction) {
+                          HaltAction haltAction, TickAction tickAction, AgonizingAction agonizingAction, SlowAction slowAction, MediumAction mediumAction, FastAction fastAction, ShowAction showAction, HideAction hideAction) {
         this.model = model;
         this.service = service;
 
@@ -43,6 +44,8 @@ public class MenuController {
         this.slowAction = slowAction;
         this.mediumAction = mediumAction;
         this.fastAction = fastAction;
+        this.showAction = showAction;
+        this.hideAction = hideAction;
 
         HashMap<String, Action> gridMenuItems = new HashMap<>();
         gridMenuItems.put("Clear", this.clearAction);
@@ -59,6 +62,11 @@ public class MenuController {
         goMenuItems.put("Medium", this.mediumAction);
         goMenuItems.put("Fast", this.fastAction);
         this.actions.put("Go", goMenuItems);
+
+        HashMap<String, Action> paletteMenuItems = new HashMap<>();
+        paletteMenuItems.put("Show", this.showAction);
+        paletteMenuItems.put("Hide", this.hideAction);
+        this.actions.put("Palette", paletteMenuItems);
     }
 
     public void action(String menu, String menuItem) {

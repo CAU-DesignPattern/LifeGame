@@ -26,7 +26,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[clearMap] clear map 호출시 mapChanged 호출되는지 test")
-    void clear() {
+    void clearMapTest() {
         //given
         this.model.setMapSize(3);
         //when
@@ -37,7 +37,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[SetMapSize] 3*3 test")
-    void setmapsize1() {
+    void setMapSize1Test() {
         //given
         this.model.setMapSize(3);
 
@@ -50,7 +50,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[SetMapSize] 5*5 test")
-    void setmapsize2() {
+    void setMapSize2Test() {
         //given
         this.model.setMapSize(5);
 
@@ -63,7 +63,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[toggle] 3*3 test")
-    void toggle1() {
+    void toggle1Test() {
 
         //given
         this.model.setMapSize(3);
@@ -77,8 +77,8 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : 1 -> 0 test")
-    void toggle2() {
+    @DisplayName("[toggle] 1 -> 0 test")
+    void toggle2Test() {
         //given
         this.model.setMapSize(4);
         this.model.toggle(1, 3);
@@ -92,8 +92,8 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("toggle : 5*5 test")
-    void toggle3() {
+    @DisplayName("[toggle] 5*5 test")
+    void toggle3Test() {
         //given
         this.model.setMapSize(5);
 
@@ -107,7 +107,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[toggle] toggle 호출시 mapChanged 호출되는지 test")
-    void toggle() {
+    void toggleTest() {
         //given
         this.model.setMapSize(3);
         //when
@@ -118,7 +118,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[setMap] setmap 호출시 mapChanged 호출되는지 test")
-    void setmap() {
+    void setMapTest() {
         //given
         int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
         //when
@@ -128,8 +128,44 @@ class ModelTest {
     }
 
     @Test
+    @DisplayName("[draw] draw 기능 테스트")
+    void draw1Test() {
+
+        //given
+        this.model.setMapSize(3);
+
+        int[][] bluePrint = new int[][] {{0, 1}, {1, 0}};
+        int x = 0;
+        int y = 0;
+
+        //when
+        this.model.draw(bluePrint, x, y);
+        //then
+        assertArrayEquals(new int[][] {{0, 1, 0}, {1, 0, 0}, {0, 0, 0}}, this.model.getMap());
+        verify(this.model).mapChanged();
+    }
+
+    @Test
+    @DisplayName("[draw] 그림이 잘려야 할 때 draw 기능 테스트")
+    void draw2Test() {
+
+        //given
+        this.model.setMapSize(3);
+
+        int[][] bluePrint = new int[][] {{0, 1, 1, 0}, {1, 0, 1, 1}};
+        int x = 1;
+        int y = 1;
+
+        //when
+        this.model.draw(bluePrint, x, y);
+        //then
+        assertArrayEquals(new int[][] {{0, 0, 0}, {0, 0, 1}, {0, 1, 0}}, this.model.getMap());
+        verify(this.model).mapChanged();
+    }
+
+    @Test
     @DisplayName("[nextState] 3*3 test")
-    void next1() {
+    void nextState1Test() {
 
         //Model m = mock(Model.class);
         //given
@@ -147,7 +183,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[nextState] 4*4 test")
-    void next2() {
+    void nextState2Test() {
         //given
         int[][] arr = {{0, 0, 0, 0}, {1, 0, 1, 0}, {0, 1, 1, 0}, {0, 1, 0, 0}};
         this.model.setMap(arr);
@@ -161,8 +197,8 @@ class ModelTest {
     }
 
     @Test
-    @DisplayName("[nextState] : 5*5 test")
-    void next3() {
+    @DisplayName("nextState : 5*5 test")
+    void nextState3Test() {
         //given
         int[][] arr = {{0, 0, 0, 0, 0}, {0, 1, 1, 1, 0}, {0, 1, 0, 1, 0}, {0, 1, 1, 1, 0}, {0, 0, 0, 0, 0}};
         this.model.setMap(arr);
@@ -177,7 +213,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[nextState] nextState 호출시 mapChanged 2번 호출되는지 test")
-    void nextstate() {
+    void nextStateTest() {
         //given
         int[][] arr = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
         this.model.setMap(arr);
@@ -189,7 +225,7 @@ class ModelTest {
 
     @Test
     @DisplayName("[Model] 통합 테스트")
-    void entire() {
+    void modelTest() {
         this.model.setMapSize(3);
         this.model.toggle(0, 0);
         this.model.toggle(0, 1);
@@ -219,8 +255,9 @@ class ModelTest {
         //given
         LifePanel lifePanel = mock(LifePanel.class);
 
-        //when
         this.model.addObserver(lifePanel);
+
+        //when
         this.model.mapChanged();
 
         //then
