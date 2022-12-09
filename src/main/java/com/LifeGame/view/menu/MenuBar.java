@@ -6,11 +6,9 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
 
 @Component
-public class MenuBar extends JMenuBar implements Observer {
+public class MenuBar extends JMenuBar {
 
     private final HashMap<String, Menu> menus = new HashMap<>();
     private final MenuController menuController;
@@ -53,8 +51,4 @@ public class MenuBar extends JMenuBar implements Observer {
         return this.menus.get(name);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
 }
