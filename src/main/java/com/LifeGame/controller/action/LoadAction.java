@@ -7,7 +7,7 @@ import com.LifeGame.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
+import javax.swing.*;
 
 @Component
 public class LoadAction implements Action {
@@ -30,7 +30,10 @@ public class LoadAction implements Action {
             this.model.setMap(mapData.getMap());
         } catch (InvalidFileLoadedException e) {
             this.model.clearMap();
-            // TODO: 실패 시 에러 Alert 표시
+            // TODO : 실패 시 에러 Alert 표시
+            {	JOptionPane.showMessageDialog( null, "Read Failed!",
+                    "The Game of Life", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
